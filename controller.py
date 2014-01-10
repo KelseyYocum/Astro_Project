@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, g, session, url_for, flash, jsonify
-from model import session as DB, User, Series, Episode, Review, UserSeries, requests, pq, add_series
+from model import session as DB, User
 from flask.ext.login import LoginManager, login_required, login_user, current_user
 from flaskext.markdown import Markdown
 import config
@@ -49,11 +49,10 @@ def authenticate():
 
 @app.route("/")
 def index():
-    series = Series.query.all()
     return render_template("index.html")
 
 
-    
+
 
 
 if __name__ == "__main__":

@@ -43,6 +43,11 @@ class User(Base, UserMixin):
         password = password.encode("utf-8")
         return bcrypt.hashpw(password, self.salt.encode("utf-8")) == self.password
 
+class Location(Base):
+    __tablename__ = "locations"
+    id = Column(Integer, primary_key=True)
+    lat = Column(Integer, nullable = False)
+    lng = Column(Integer, nullable = False)
 
 
 ################################################################################
@@ -57,12 +62,10 @@ def create_tables():
 
     u2 = User(email="test2@test.com", username='Paul')
     u2.set_password("unicorn")
-    u2.add_friend(u)
     session.add(u2)
 
     u3 = User(email='test3@test.com', username='Sarah')
     u3.set_password('password')
-    u3.add_friend(u, u2)
     session.add(u3)
   
     session.commit()
