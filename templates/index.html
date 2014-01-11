@@ -2,17 +2,35 @@
 
 {% block body %}
 
-<div class="col-md-12">
+
     <div id="map"></div>
-</div>
+    <img src="../static/images/marker-icon.png">
+
 
 <script type="text/javascript">
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    // var map = L.map('map').setView([51.505, -0.09], 13);
+    var map = L.map('map');
+    map.locate({setView: true, maxZoom: 13});
 
+//red style is 53004
     L.tileLayer('http://{s}.tile.cloudmade.com/7a3e1ff58dc1489e92c5517894eebb4a/116196/256/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 18
     }).addTo(map);
+
+    var marker = L.icon({
+    iconUrl: 'static/images/marker-icon.png',
+    shadowUrl: 'static/images/my-icon-shadow.png'
+
+});
+
+
+    L.marker([37.7833, -122.4167], {icon: marker}).bindPopup('Hi!').addTo(map);
+    
+    
+
 </script>
 
 {% endblock %}
+
+
