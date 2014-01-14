@@ -48,6 +48,7 @@ class Location(Base):
     id = Column(Integer, primary_key=True)
     lat = Column(Integer, nullable = False)
     lng = Column(Integer, nullable = False)
+    descrption = Column(String(64), nullable = True)
 
 
 ################################################################################

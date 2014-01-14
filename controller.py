@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request, g, session, url_for
 from model import session as DB, User
 from flask.ext.login import LoginManager, login_required, login_user, current_user
 from flaskext.markdown import Markdown
+from pygeocoder import Geocoder
 import config
 import forms
 import model
