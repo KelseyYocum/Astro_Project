@@ -4,7 +4,6 @@
 
 
     <div id="map"></div>
-    <img src="../static/images/marker-icon.png">
 
 
 <script type="text/javascript">
@@ -18,26 +17,28 @@
     // }).addTo(map);
 
     
-
+    //set the marker image
     var marker = L.icon({
-        iconUrl: 'static/images/marker-icon.png',
-        shadowUrl: 'static/images/marker-shadow.png'
+        iconUrl: 'static/css/images/marker-icon.png',
+        shadowUrl: 'static/css/images/marker-shadow.png'
     });
 
     var cloudmadeAttribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
     var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/7a3e1ff58dc1489e92c5517894eebb4a/{styleId}/256/{z}/{x}/{y}.png';
 
+    //setting up base layers
     var dayMap = L.tileLayer(cloudmadeUrl, {styleId: 116196, attribution: cloudmadeAttribution});
-
     var nightMap = L.tileLayer(cloudmadeUrl, {styleId: 53004, attribution: cloudmadeAttribution});
 
-
+    //setting up overlay layers
     var sanFrancisco = L.marker([37.7833, -122.4167], {icon: marker}).bindPopup('Hi!');
     var sanDiego = L.marker([32.7150, -117.1625], {icon: marker}).bindPopup('Hi!');
     var portland = L.marker({lat:45.5200, lng:-122.6819}, {icon: marker}).bindPopup('Hi!');
     
     var cities = L.layerGroup([sanFrancisco, sanDiego, portland]);
 
+    //start the map off with cities and the dayMap layers
+    //initial location set to an estimate of where the user is
     var map = L.map('map', {layers: [dayMap, cities]});
     map.locate({setView: true, maxZoom: 8});
 
@@ -46,11 +47,14 @@
         "Night Mode": nightMap
     };
 
+    // if want to toggle, add to the control below after baseMaps
     var overlayMaps = {
         "Cities":cities
     };
 
-    L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    //creating the layer control that appears in top right corner
+    L.control.layers(baseMaps).addTo(map);
 
 </script>
 
