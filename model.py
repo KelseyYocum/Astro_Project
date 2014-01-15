@@ -48,7 +48,7 @@ class Location(Base):
     id = Column(Integer, primary_key=True)
     lat = Column(Integer, nullable = False)
     lng = Column(Integer, nullable = False)
-    descrption = Column(String(64), nullable = True)
+    description = Column(String(64), nullable = True)
 
 
 ################################################################################
@@ -68,6 +68,14 @@ def create_tables():
     u3 = User(email='test3@test.com', username='Sarah')
     u3.set_password('password')
     session.add(u3)
+
+    santa_fe = Location(lat = 35.6672, lng = -105.9644, description = "this is a test")
+    albuquerque = Location(lat = 35.1107, lng = -106.6100, description = "this is another test")
+    taos = Location(lat = 36.3940, lng = -105.5767, description = "this is a test again")
+    session.add(santa_fe)
+    session.add(albuquerque)
+    session.add(taos)
+
   
     session.commit()
 

@@ -39,7 +39,18 @@
 
     //start the map off with cities and the dayMap layers
     //initial location set to an estimate of where the user is
-    var map = L.map('map', {layers: [dayMap, cities]});
+
+
+    var newMexico =  new L.layerGroup();
+    var locations = {{locations | safe}}
+    for (var i = 0; i < locations.length; i++) {
+        var markerInfo = locations[i];
+        console.log(markerInfo.lat);
+        var markerLocation = L.marker([markerInfo.lat, markerInfo.lng], {icon: marker}).bindPopup(markerInfo.description);
+        newMexico.addLayer(markerLocation);
+    };
+
+    var map = L.map('map', {layers: [dayMap, cities, newMexico]});
     map.locate({setView: true, maxZoom: 8});
 
     var baseMaps = {
@@ -49,8 +60,10 @@
 
     // if want to toggle, add to the control below after baseMaps
     var overlayMaps = {
-        "Cities":cities
+        "Cities":cities,
+        "New Mexico": newMexico
     };
+
 
 
     //creating the layer control that appears in top right corner

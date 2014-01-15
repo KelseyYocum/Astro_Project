@@ -26,6 +26,7 @@ def load_user(user_id):
 
 @app.route("/login")
 def login():
+
     return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
@@ -50,7 +51,16 @@ def authenticate():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    location_obj_list = DB.query(model.Location).all()
+    locations = []
+    for location in location_obj_list:
+        lat = location.lat
+        lng = location.lng
+        description = location.description
+        locations.append({"lat":lat, "lng":lng, "description":description})
+    locations = json.dumps(locations)
+    print locations
+    return render_template("index.html", locations = locations)
 
 
 
