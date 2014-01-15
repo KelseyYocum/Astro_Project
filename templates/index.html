@@ -57,13 +57,13 @@
     for (var i = 0; i < locations.length; i++) {
         var markerInfo = locations[i];
         console.log(markerInfo.lat);
-        var popupContent = "<b>"+markerInfo.name+"</b><p>"+markerInfo.description+"</p><a href='http://www.oregonobservatory.org'>Oregon Observatory</a>"
+        var popupContent = "<b>"+markerInfo.name+"</b><p>"+markerInfo.description+"</p><a href='http://www.oregonobservatory.org'>Website</a>"
         var markerLocation = L.marker([markerInfo.lat, markerInfo.lng], {icon: marker}).bindPopup(popupContent);
         markers.addLayer(markerLocation);
     };
 
     var map = L.map('map', {layers: [dayMap, markers]});
-    map.locate({setView: true, maxZoom: 8});
+    map.locate({setView: true, maxZoom: 10});
 
     var baseMaps = {
         "Normal": dayMap,
@@ -72,14 +72,13 @@
 
     // if want to toggle, add to the control below after baseMaps
     var overlayMaps = {
-        "Cities":cities,
-        "New Mexico": newMexico
+        "Locations": markers
     };
 
 
 
     //creating the layer control that appears in top right corner
-    L.control.layers(baseMaps).addTo(map);
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 </script>
 
