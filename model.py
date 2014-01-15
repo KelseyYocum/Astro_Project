@@ -48,7 +48,16 @@ class Location(Base):
     id = Column(Integer, primary_key=True)
     lat = Column(Integer, nullable = False)
     lng = Column(Integer, nullable = False)
+    name = Column(String(64), nullable = False)
+    site_type = Column(String(64), nullable = False) #ex: observatory, viewing site, star party
+    open_times = Column(String (64), nullable = False)
     description = Column(String(64), nullable = True)
+    address = Column(String(64), nullable = False)
+    phone = Column(String(64), nullable = True)
+    email = Column(String(64), nullable = False)
+    url = Column(String(64), nullable = True)
+    fee = Column(String(64), nullable = True)
+
 
 
 ################################################################################
@@ -69,13 +78,18 @@ def create_tables():
     u3.set_password('password')
     session.add(u3)
 
-    santa_fe = Location(lat = 35.6672, lng = -105.9644, description = "this is a test")
-    albuquerque = Location(lat = 35.1107, lng = -106.6100, description = "this is another test")
-    taos = Location(lat = 36.3940, lng = -105.5767, description = "this is a test again")
-    session.add(santa_fe)
-    session.add(albuquerque)
-    session.add(taos)
-
+    sunriver = Location(lat=43.8842, 
+                        lng=-121.4375, 
+                        name="Oregon Observatory",
+                        site_type="Observatory",
+                        open_times="Summer Tues-Sun",
+                        description="We are a private, non profit, educational organization. The Oregon Observatory at Sunriver is part of the Sunriver Nature Center & Observatory. We offer evening viewing programs, solar viewing, and many other educational programs. In addition, we sell, service and repair telescope and related products and boast the largest rocketry store in the Northwest.",
+                        address="5724 River Road, Sunriver, Oregon 97707",
+                        phone="541-598-4406",
+                        email="bob@oregonobservatory.com",
+                        url="www.oregonobservatory.org",
+                        fee="Adults $6, Kids $4" )
+    session.add(sunriver)
   
     session.commit()
 

@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 
+{% macro show_episode_info(ep) %}
+ <div class="sidebar col-md-3 col-md-offset-9" style-"display: none">
+         Hey!
+</div>
+
+{% endmacro %}
+
 {% block body %}
 
-
+<div class="wrapper">
     <div id="map"></div>
-
+</div>
+       
+            
+  
+   
 
 <script type="text/javascript">
     // var map = L.map('map').setView([51.505, -0.09], 13);
@@ -31,26 +42,27 @@
     var nightMap = L.tileLayer(cloudmadeUrl, {styleId: 53004, attribution: cloudmadeAttribution});
 
     //setting up overlay layers
-    var sanFrancisco = L.marker([37.7833, -122.4167], {icon: marker}).bindPopup('Hi!');
-    var sanDiego = L.marker([32.7150, -117.1625], {icon: marker}).bindPopup('Hi!');
-    var portland = L.marker({lat:45.5200, lng:-122.6819}, {icon: marker}).bindPopup('Hi!');
+    // var sanFrancisco = L.marker([37.7833, -122.4167], {icon: marker}).bindPopup('Hi!');
+    // var sanDiego = L.marker([32.7150, -117.1625], {icon: marker}).bindPopup('Hi!');
+    // var portland = L.marker({lat:45.5200, lng:-122.6819}, {icon: marker}).bindPopup('Hi!');
     
-    var cities = L.layerGroup([sanFrancisco, sanDiego, portland]);
+    // var cities = L.layerGroup([sanFrancisco, sanDiego, portland]);
 
     //start the map off with cities and the dayMap layers
     //initial location set to an estimate of where the user is
 
 
-    var newMexico =  new L.layerGroup();
+    var markers =  new L.layerGroup();
     var locations = {{locations | safe}}
     for (var i = 0; i < locations.length; i++) {
         var markerInfo = locations[i];
         console.log(markerInfo.lat);
-        var markerLocation = L.marker([markerInfo.lat, markerInfo.lng], {icon: marker}).bindPopup(markerInfo.description);
-        newMexico.addLayer(markerLocation);
+        var popupContent = "<b>"+markerInfo.name+"</b><p>"+markerInfo.description+"</p><a href='http://www.oregonobservatory.org'>Oregon Observatory</a>"
+        var markerLocation = L.marker([markerInfo.lat, markerInfo.lng], {icon: marker}).bindPopup(popupContent);
+        markers.addLayer(markerLocation);
     };
 
-    var map = L.map('map', {layers: [dayMap, cities, newMexico]});
+    var map = L.map('map', {layers: [dayMap, markers]});
     map.locate({setView: true, maxZoom: 8});
 
     var baseMaps = {

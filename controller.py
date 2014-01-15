@@ -57,7 +57,8 @@ def index():
         lat = location.lat
         lng = location.lng
         description = location.description
-        locations.append({"lat":lat, "lng":lng, "description":description})
+        name = location.name
+        locations.append({"lat":lat, "lng":lng, "description":description, "name":name})
     locations = json.dumps(locations)
     print locations
     return render_template("index.html", locations = locations)
