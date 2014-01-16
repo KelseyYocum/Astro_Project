@@ -54,14 +54,15 @@ def index():
     location_obj_list = DB.query(model.Location).all()
     locations = []
     for location in location_obj_list:
+        location_id = location.id
         lat = location.lat
         lng = location.lng
         description = location.description
         name = location.name
-        locations.append({"lat":lat, "lng":lng, "description":description, "name":name})
+        locations.append({"id":location_id, "lat":lat, "lng":lng, "description":description, "name":name})
     locations = json.dumps(locations)
     print locations
-    return render_template("index.html", locations = locations)
+    return render_template("index.html", locations=locations, location_obj_list=location_obj_list)
 
 
 
