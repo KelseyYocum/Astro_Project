@@ -30,9 +30,12 @@
 <div class="wrapper">
     <div id="map"></div>
 </div>
- 
-{{sidebar(location_obj_list[0])}}
+
+{% for location in location_obj_list%}
     
+    {{sidebar(location)}}
+    
+{% endfor %}
       
 <script type="text/javascript">
 </script>
@@ -105,37 +108,22 @@
 
     // must have the map.on so that the link/event is assigned each time
     // a popup is opened
+    // this shows the side bar when "Learn More" is clicked
     map.on('popupopen', function() {  
     $('.popUpLink').click(function(e){
+        var location_id = $(this).attr('id');
         console.log("link clicked!");
-        $("#location-1").show();
+        console.log(location_id);
+        $(".sidebar").hide();
+        $("#location-"+location_id).show();
       });
     });
 
+    // closes sidebar when popup closes
+    map.on('popupclose', function(){
+        $(".sidebar").hide();
+    });
    
-
-   
-    // function show_sidebar(evt){
-    //     var ep_num = $(this).children()[0].innerHTML
-    //     var season_num = $(this).parent().attr("season");
-    //     season_num = parseInt(season_num)
-
-    //     var episode_div_id = "ep-" + season_num + "-" + ep_num;
-    //     $(".episode").hide();
-    //     $("#"+episode_div_id).show();
-    //     console.log(episode_div_id);
-
-    // }
-
-    // function show_sidebar(evt){
-    //     var location_id= (this)
-        // console.log("hello");
-
-    //     $(".sidebar").hide();
-    //     $("#location-"+location_id).show();
-    //     console.log(location_id);
-
-    // };
 
 </script>
 
